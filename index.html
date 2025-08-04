@@ -6,6 +6,7 @@
     <title>Unity WebGL Player | StreamingTest2</title>
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
   </head>
   <body>
     <div id="unity-container" class="unity-desktop">
@@ -23,6 +24,9 @@
         <div id="unity-build-title">StreamingTest2</div>
       </div>
     </div>
+    <video id="hls-video" controls width="640" height="360" style="margin: 20px auto; display: block;"></video>
+
+
     <script>
 
       var container = document.querySelector("#unity-container");
@@ -124,7 +128,40 @@
               });
             };
 
+      const hlsVideo = document.getElementById('hls-video');
+      const hlsSource = './Video/hls_playlist.m3u8'; // Replace with your actual HLS URL
+
+      if (Hls.isSupported()) {
+        const hls = new Hls();
+        hls.loadSource(hlsSource);
+        hls.attachMedia(hlsVideo);
+        hls.on(Hls.Events.MANIFEST_PARSED, function () {
+          hlsVideo.play();
+        });
+      } else if (hlsVideo.canPlayType('application/vnd.apple.mpegurl')) {
+        hlsVideo.src = hlsSource;
+        hlsVideo.addEventListener('loadedmetadata', function () {
+          hlsVideo.play();
+        });
+      } else {
+        console.error('HLS not supported in this browser');
+      }
+
+
+      function PlayHLSVideo() {
+        document.getElementById('hls-video').play();
+      }
+
+      function PauseHLSVideo() {
+        document.getElementById('hls-video').pause();
+      }
+
       document.body.appendChild(script);
+
+      
+
+      
+
 
     </script>
   </body>

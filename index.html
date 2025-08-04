@@ -6,8 +6,6 @@
     <title>Unity WebGL Player | StreamingTest2</title>
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
-    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-
   </head>
   <body>
     <div id="unity-container" class="unity-desktop">
@@ -33,16 +31,6 @@
       var progressBarFull = document.querySelector("#unity-progress-bar-full");
       var fullscreenButton = document.querySelector("#unity-fullscreen-button");
       var warningBanner = document.querySelector("#unity-warning");
-
-      
-      const video = document.getElementById('unityVideo'); // Unity 创建的视频标签 ID
-      if (Hls.isSupported()) {
-        const hls = new Hls();
-        hls.loadSource('file://Video/叻媽Intro.mp4');
-        hls.attachMedia(video);
-        hls.on(Hls.Events.MANIFEST_PARSED, () => video.play());
-      }
-
 
       // Shows a temporary message banner/ribbon for a few seconds, or
       // a permanent error message on top of the canvas if type=='error'.
